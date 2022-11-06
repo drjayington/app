@@ -17,28 +17,27 @@ const todoList: Map<string, {description: string, isComplete:boolean }> = new Ma
 app.use(cors());
 app.use(express.json());
 
-app.get( '/list', ( req, res ) => {
-    console.log('returning: ' + todoList);
+app.get('/list', ( req, res ) => {
+    try{
     res.send(Array.from(todoList).map( val => { return {
          id: val[0], 
          description: val[1].description, 
          isComplete: val[1].isComplete  }
-    }));
+    }));}
+    catch{
+        console.log('get error ')
+        res.status(500).send('get error');
+    }
 } );
 
-app.put( '/list/:id', ( req, res ) => {
-    if(req.params.id === '6') {
-        res.status(500).send('invalid parameters');
-    } else {
-        console.log('upserting ' + req.params.id + ' to ' + req.body.isComplete + ' - ' + req.body.description); 
-        todoList.set(req.params.id, { description: req.body.description as string, isComplete: req.body.isComplete === "true"});
-
-        res.send(Array.from(todoList).map( val => { return {
-            id: val[0], 
-            description: val[1].description, 
-            isComplete: val[1].isComplete  }
-       }));
-    } 
+app.put('/list/:id', ( req, res ) => {
+    try{
+        todoList.set(req.params.id, { description: req.body.description as string, isComplete: req.body.isComplete});
+        res.send({id: req.params.id, description: req.body.description as string, isComplete: req.body.isComplete});
+    } catch {
+        console.log('put error')
+        res.status(500).send('put error');
+    }
 } );
 
 app.listen( port, () => {

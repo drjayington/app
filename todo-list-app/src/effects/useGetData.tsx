@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
+import IData from '../interfaces/IData';
 
 const useGetData = (url:string) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState(null);
+  const [data, setData] = useState<IData[]> ([]);
+  const [error, setError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const abortController = new AbortController();
 
-    setTimeout(() => {
-      fetch(url, { signal: abortController.signal })
+    fetch(url, { signal: abortController.signal })
       .then(res => {
         if (!res.ok) {
           throw Error('failed to get data');
@@ -19,7 +19,7 @@ const useGetData = (url:string) => {
       .then(data => {
         setIsLoading(false);
         setData(data);
-        setError(null);
+        setError(false);
       })
       .catch(err => {
         if (err.name === 'AbortError') {
@@ -29,10 +29,9 @@ const useGetData = (url:string) => {
           setError(err.message);
         }
       })
-    }, 1000);
 
     return () => abortController.abort();
-  }, [url])
+  }, [url, setData])
 
   return { data, error, isLoading };
 }

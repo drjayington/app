@@ -1,5 +1,13 @@
 # TODO List #
 
+ - I completed all of the task
+ - I spent about half day completing the task
+ - I made the assumption not spend alot of time on the backend. 
+ - I assumed to keep a simple design for the frontend and not add in extra complexity and time such as accessability, eventual consistency of data, caching/ offline data, unit tests, e-to-e tests and performance tuning. 
+ - I have designed a simple backend rest api to expose a get and put for retreiving and upserting the data
+ - For the frontend design I choose a simple component based design. I avoid splitting the components up to much to avoid prop drilling in order to avoid extra state manage. I looked to split the components based on there functionality and reuse. I used story book to give me confidence in my various use cases forthe components. I kept global state out of the components in order to make the easier to reason about. I set up some top level styling for common html elements for reuse and ability to easily skin the app if needed. I used hooks as it is the newer flavour of react and prehaps simplar to understand and use. 
+
+
 ## prequist ##
 
 ensure node is installed see https://nodejs.org/en, I am using node V16.15.1 
@@ -33,9 +41,6 @@ Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.\
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
-
-- `npm run test`
-Launches the test runner in the interactive watch mode.
 
 - `npm run storybook`
 Runs storybook.

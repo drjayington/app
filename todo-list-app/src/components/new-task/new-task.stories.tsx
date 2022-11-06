@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import IUpsertData from '../../interfaces/IUpsertData';
 import NewTaskList from './new-task';
 
 export default {
@@ -12,21 +13,15 @@ const Template: ComponentStory<typeof NewTaskList> = (args) => <NewTaskList {...
 export const loading = Template.bind({});
 loading.args = {
   loading: true,
-  data: undefined,
   update: undefined,
 };
 
 export const data = Template.bind({});
 data.args = {
   loading: false,
-  data: { 
-    id: '1',
-    description: "test",
-    iSComplete: false
-  },
-  update: (id: string,
-    description: string,
-    iSComplete: boolean) => {
-      console.log(`id: ${id} description: ${description} iSComplete: ${iSComplete}` )
+  update:(
+    upsertData: IUpsertData
+  ) => {
+    alert(`id: ${upsertData.id}   description: ${upsertData.description}   isComplete: ${upsertData.isComplete}   inProgress: ${upsertData.inProgress}`)
   }
 };
